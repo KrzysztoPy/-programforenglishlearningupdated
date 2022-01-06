@@ -22,13 +22,14 @@ def test_set_tiitle(root_tk, expected):
 @pytest.mark.parametrize("expected", [
     (1680, 1050),
     (1920, 1080)
-],ids=[])
-def test_get_screen_result(root_tk, expected):
+])
+def test_get_screen_result(expected):
     if expected == (1680, 1050):
         with patch("tkinter.Tk.winfo_screenwidth") as mock_winfo_screenwidth:
             with patch("tkinter.Tk.winfo_screenheight") as mock_winfo_screenheight:
                 mock_winfo_screenwidth.return_value = 1680
                 mock_winfo_screenheight.return_value = 1050
-                assert get_screen_result(root_tk) == expected
-    i
-    assert get_screen_result(root_tk) == expected
+                assert get_screen_result() == expected
+    else:
+        assert get_screen_result() == expected
+

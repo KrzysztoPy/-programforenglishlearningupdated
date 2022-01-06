@@ -27,3 +27,18 @@ def minimal_screen_resolutely_for_messagebox(minimal_screen_resolution):
     MIN_BOX_HEIGHT = min_screen_height / 2
 
     return MIN_BOX_WIDTH_, MIN_BOX_HEIGHT
+
+
+def rules_for_determining_the_size_of_the_main_window(width_screen_resolution, height_screen_resolution):
+    width_main_window_size = -(width_screen_resolution // -5)
+    height_main_window_size = -(height_screen_resolution // -8)
+
+    return width_main_window_size, height_main_window_size
+
+
+def set_middle_position_for_main_window(width_screen_resolution, height_screen_resolution, width_window_size,
+                                        height_window_size):
+    horizontal_position_on_screen = -(width_screen_resolution // -2) + (width_window_size // -2)
+    vertical_position_on_screen = -(height_screen_resolution // -2) + (height_window_size // -2)
+
+    return horizontal_position_on_screen, vertical_position_on_screen
