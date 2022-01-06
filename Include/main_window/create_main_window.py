@@ -17,7 +17,7 @@ class MainWindow:
 
     def create_main_window(self):
         self.root.title('Learning english')
-        self.root.iconbitmap('D:/PythonProjects/programForEnglishLearning/Icons/eye.ico')
+        self.root.iconbitmap('D:/PythonProjects/ProgramForEnglishLearning/Icons/eye.ico')
         self.root.geometry(self.window_centring())
 
     def setting_of_all_notebooks(self):
