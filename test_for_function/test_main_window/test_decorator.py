@@ -1,7 +1,8 @@
 import pytest
+from unittest.mock import MagicMock
 
 from decorators.mian_window_decorators import rules_for_creating_the_name_of_the_main_window, \
-    resctriction_for_minimal_screen_resolution
+    resctriction_for_minimal_screen_resolution, checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum
 
 
 @pytest.mark.parametrize("sample, exception_type, expected", [
@@ -11,8 +12,10 @@ from decorators.mian_window_decorators import rules_for_creating_the_name_of_the
     (lambda: '60charactertext' * 4 + ' ', AttributeError, 'Length name must be shorter than 60 characters.'),
 ])
 def test_rules_for_creating_the_name_of_the_main_window(sample, exception_type, expected):
+    decorator_func_result = rules_for_creating_the_name_of_the_main_window(sample)
+
     with pytest.raises(exception_type) as exc_info:
-        rules_for_creating_the_name_of_the_main_window(sample)
+        decorator_func_result()
     assert exc_info.type is exception_type
     assert str(exc_info.value) == expected
 
@@ -29,7 +32,18 @@ def test_rules_for_creating_the_name_of_the_main_window(sample, exception_type, 
                                             "to scale the size of windows."),
 ))
 def test_resctriction_for_minimal_screen_resolution(sample, exception_type, expected):
+    decorator_func_result = resctriction_for_minimal_screen_resolution(sample)
+
     with pytest.raises(exception_type) as exc_info:
-        resctriction_for_minimal_screen_resolution(sample)
+        decorator_func_result()
     assert exc_info.type is exception_type
     assert str(exc_info.value) == expected
+
+
+# @pytest.mark.parametrize("sample,expected",[
+#     ()
+# ])
+# def test_checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum(sample, expected):
+#     decorator_func_result = checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum()
+#
+# # def test_checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum():

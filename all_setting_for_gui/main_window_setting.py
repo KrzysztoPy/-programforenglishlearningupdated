@@ -3,14 +3,8 @@ from decorators.mian_window_decorators import rules_for_creating_the_name_of_the
 
 
 @rules_for_creating_the_name_of_the_main_window
-def main_window_name():
+def main_window_name_text():
     return "Program for english learning"
-
-
-"""
-
-If someone set minimal_screen_resolution under width = 1024 and height = 768
-"""
 
 
 @resctriction_for_minimal_screen_resolution
@@ -30,8 +24,8 @@ def minimal_screen_resolutely_for_messagebox(minimal_screen_resolution):
 
 
 def rules_for_determining_the_size_of_the_main_window(width_screen_resolution, height_screen_resolution):
-    width_main_window_size = -(width_screen_resolution // -5)
-    height_main_window_size = -(height_screen_resolution // -8)
+    width_main_window_size = -(width_screen_resolution // -2)
+    height_main_window_size = -(height_screen_resolution // -4)
 
     return width_main_window_size, height_main_window_size
 

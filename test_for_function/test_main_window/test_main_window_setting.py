@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 
-from all_setting_for_gui.main_window_setting import main_window_name, minimal_screen_resolution, \
+from all_setting_for_gui.main_window_setting import main_window_name_text, minimal_screen_resolution, \
     rules_for_determining_the_size_of_the_main_window, set_middle_position_for_main_window
 
 
@@ -9,7 +9,7 @@ from all_setting_for_gui.main_window_setting import main_window_name, minimal_sc
                          [("Program for english learning")]
                          )
 def test_main_window_name(expected):
-    assert main_window_name() == expected
+    assert main_window_name_text() == expected
 
 
 @pytest.mark.parametrize("expected",
@@ -19,22 +19,18 @@ def test_minimal_screen_resolution(expected):
     assert minimal_screen_resolution() == expected
 
 
-@pytest.mark.parametrize("expected",
-                         [(512, 384)]
-                         )
-def test_minimal_screen_resolutely_for_messagebox(expected):
-    with patch("all_setting_for_gui.main_window_setting.minimal_screen_resolution") as mock_minimal_screen_resolution:
-        mock_minimal_screen_resolution = lambda: (expected[0] * 2, expected[1] * 2)
-        assert minimal_screen_resolutely_for_messagebox(mock_minimal_screen_resolution) == expected
+@pytest.fixture(params=[(1920, 1080), (1600, 900), (1366, 768)])
+def fixture_calculated_expected(request):
+    width_result = -(request.param[0] // -2)
+    hight_result = -(request.param[1] // -4)
+
+    yield request.param[0], request.param[1], (width_result, hight_result)
 
 
-@pytest.mark.parametrize("width_sample,height_sample,expected",
-                         [(1920, 1080, (384, 135)),
-                          (1600, 900, (320, 113)),
-                          (1366, 768, (274, 96))
-                          ])
-def test_rules_for_determining_the_size_of_the_main_window(width_sample, height_sample, expected):
-    assert rules_for_determining_the_size_of_the_main_window(width_sample, height_sample) == expected
+def test_rules_for_determining_the_size_of_the_main_window(fixture_calculated_expected):
+    assert rules_for_determining_the_size_of_the_main_window(fixture_calculated_expected[0],
+                                                             fixture_calculated_expected[1]) == \
+           fixture_calculated_expected[2]
 
 
 @pytest.mark.parametrize(
