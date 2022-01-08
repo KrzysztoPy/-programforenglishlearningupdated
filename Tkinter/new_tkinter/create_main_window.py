@@ -1,33 +1,31 @@
 from tkinter import Tk, ttk
 
-from all_setting_for_gui.main_window_setting import main_window_name_text, rules_for_determining_the_size_of_the_main_window, \
-    set_middle_position_for_main_window
-from decorators.mian_window_decorators import resctriction_for_minimal_screen_resolution, \
-    checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum
+from all_setting_for_gui.main_window_setting import main_window_name_text
 
 
-def set_title(root):
-    root.title(main_window_name_text())
+def set_title(root, title_name):
+    root.title(title_name)
 
 
-@checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum
-def get_screen_result(root):
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+def calculating_the_initial_size_of_the_main_window(width_screen_resolution, height_screen_resolution):
+    width_main_window_size = -(width_screen_resolution // -2)
+    height_main_window_size = -(height_screen_resolution // -4)
 
-    return screen_width, screen_height
+    return width_main_window_size, height_main_window_size
 
 
-def set_geometry_main_window(root, width_screen_resolution, height_screen_resolution):
-    width_window_size, height_window_size = rules_for_determining_the_size_of_the_main_window(width_screen_resolution,
-                                                                                              height_screen_resolution)
+def calculating_middle_position_main_window_on_screen(width_screen_resolution, height_screen_resolution,
+                                                      width_window_size,
+                                                      height_window_size):
+    horizontal_position_on_screen = -(width_screen_resolution // -2) + (width_window_size // -2)
+    vertical_position_on_screen = -(height_screen_resolution // -2) + (height_window_size // -2)
 
-    horizontal_position, vertical_position = set_middle_position_for_main_window(width_screen_resolution,
-                                                                                 height_screen_resolution,
-                                                                                 width_window_size, height_window_size)
+    return horizontal_position_on_screen, vertical_position_on_screen
+
+
+def set_geometry_main_window(root, calculating_the_initial_size_of_the_main_window,
+                             calculating_middle_position_main_window_on_screen):
+    width_window_size, height_window_size = calculating_the_initial_size_of_the_main_window()
+    horizontal_position, vertical_position = calculating_middle_position_main_window_on_screen()
 
     root.geometry(f"{width_window_size}x{height_window_size}+{horizontal_position}+{vertical_position}")
-
-
-def main_loop(root):
-    root.mainloop()

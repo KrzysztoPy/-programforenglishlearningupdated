@@ -38,12 +38,3 @@ def test_resctriction_for_minimal_screen_resolution(sample, exception_type, expe
         decorator_func_result()
     assert exc_info.type is exception_type
     assert str(exc_info.value) == expected
-
-
-# @pytest.mark.parametrize("sample,expected",[
-#     ()
-# ])
-# def test_checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum(sample, expected):
-#     decorator_func_result = checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum()
-#
-# # def test_checking_if_the_downloaded_screen_resolution_is_higher_than_the_minimum():
