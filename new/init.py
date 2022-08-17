@@ -1,6 +1,6 @@
 from tkinter import Tk
 
-from init_file.init_main_window import return_calculating_the_initial_size_of_the_main_window, \
+from new.calculation_initialization import return_calculating_the_initial_size_of_the_main_window, \
     return_calculating_the_middle_position_for_main_window, main_window_init
 from init_file.init_notebook_tab import set_create_notebook_widget_and_root, creating_and_addition_new_tab
 
@@ -10,11 +10,13 @@ from all_setting_for_gui.main_window_setting import main_loop
 
 root = Tk()
 
-main_window_width_and_height_size = return_calculating_the_initial_size_of_the_main_window(root)
-mian_window_position = return_calculating_the_middle_position_for_main_window(root, main_window_width_and_height_size)
+main_window_size = return_calculating_the_initial_size_of_the_main_window(root)
 
-main_window_init(root, lambda: main_window_width_and_height_size, lambda: mian_window_position)
-set_create_notebook_widget_and_root(root, main_window_width_and_height_size, mian_window_position,
+
+mian_window_position = return_calculating_the_middle_position_for_main_window(root, main_window_size)
+
+main_window_init(root, lambda: main_window_size, lambda: mian_window_position)
+set_create_notebook_widget_and_root(root, main_window_size, mian_window_position,
                                     margin_size_for_new_tab)
 
 creating_and_addition_new_tab(title_for_menu_tab)
