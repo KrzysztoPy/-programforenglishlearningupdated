@@ -1,8 +1,7 @@
 import pytest
 import tkinter
-from unittest.mock import patch
 
-from Tkinter.new_tkinter.create_main_window import set_title, calculating_the_initial_size_of_the_main_window, \
+from Tkinter.new_tkinter.create_main_window import set_title, calculating_width_and_height_main_window, \
     calculating_middle_position_main_window_on_screen, set_geometry_main_window
 
 
@@ -14,7 +13,7 @@ def root_tk():
 @pytest.mark.parametrize("sample,expected", [
     ("Program for english learning", "Program for english learning")
 ])
-def test_set_tiitle(root_tk, sample, expected):
+def test_set_title(root_tk, sample, expected):
     set_title(root_tk, sample)
     assert root_tk.title() == expected
 
@@ -22,14 +21,14 @@ def test_set_tiitle(root_tk, sample, expected):
 @pytest.fixture(params=[(1920, 1080), (1600, 900), (1366, 768)])
 def fixture_calculated_expected_main_window_size(request):
     width_result = -(request.param[0] // -2)
-    hight_result = -(request.param[1] // -4)
+    height_result = -(request.param[1] // -4)
 
-    yield request.param[0], request.param[1], (width_result, hight_result)
+    yield request.param[0], request.param[1], (width_result, height_result)
 
 
 def test_rules_for_determining_the_size_of_the_main_window(fixture_calculated_expected_main_window_size):
-    assert calculating_the_initial_size_of_the_main_window(fixture_calculated_expected_main_window_size[0],
-                                                           fixture_calculated_expected_main_window_size[1]) == \
+    assert calculating_width_and_height_main_window(fixture_calculated_expected_main_window_size[0],
+                                                    fixture_calculated_expected_main_window_size[1]) == \
            fixture_calculated_expected_main_window_size[2]
 
 
@@ -49,11 +48,11 @@ def test_set_middle_position_for_main_window(width_screen_resolution, height_scr
 @pytest.fixture(params=[(1920, 1080), (1600, 900), (1366, 768)])
 def fixture_test_set_geometry_main_window_data(request):
     width_window_result = -(request.param[0] // -2)
-    hight_window_result = -(request.param[1] // -4)
+    height_window_result = -(request.param[1] // -4)
     horizontal_position_on_screen = -(request.param[0] // -2) + (width_window_result // -2)
-    vertical_position_on_screen = -(request.param[1] // -2) + (hight_window_result // -2)
+    vertical_position_on_screen = -(request.param[1] // -2) + (height_window_result // -2)
 
-    return (lambda: (width_window_result, hight_window_result), \
+    return (lambda: (width_window_result, height_window_result), \
             lambda: (horizontal_position_on_screen, vertical_position_on_screen))
 
 
@@ -70,5 +69,3 @@ def test_set_geometry_main_window(root_tk, fixture_test_set_geometry_main_window
                       fixture_test_set_geometry_main_window_data[0]()[1],
                       fixture_test_set_geometry_main_window_data[1]()[0],
                       fixture_test_set_geometry_main_window_data[1]()[1])
-
-

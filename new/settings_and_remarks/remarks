@@ -1,0 +1,4 @@
+1.  I am aware that if one of the resolution parameters is misread is zero, the window width and position will be calculated
+    anyway, i.e. two unnecessary operations will be performed (return_size_of_the_main_window and return_position_for_main_window).
+    However, these operations will not report an error.
+2.
